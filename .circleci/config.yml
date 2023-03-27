@@ -42,8 +42,8 @@ workflows:
     jobs:
         - node/run:
             pkg-manager: npm 
+            resource_class: small 
             override-ci-command: npm install 
-            resource_class: large
             context:
               - someContext
   example-workflow:
