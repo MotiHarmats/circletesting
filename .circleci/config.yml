@@ -9,9 +9,11 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   npm-install:
+    macos:
+      xcode: 14.2.0
     circleci_ip_ranges: true
-    docker:
-      - image: cimg/base:stable
+    #docker:
+    #  - image: cimg/base:stable
     steps:
       - checkout
       - run:
