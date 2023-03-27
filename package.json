@@ -1,7 +1,7 @@
 {
   "name": "CircleCI-testing",
   "version": "1.1.14",
-  "description": "CLI runner for Gatsby",
+  "description": "testing",
   "license": "MIT",
   "private": false,
   "dependencies": {
