@@ -9,8 +9,11 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   npm-install:
-    docker:
-      - image: cimg/base:stable
+    macos:
+      xcode: 14.2.0
+    circleci_ip_ranges: true
+    #docker:
+    #  - image: cimg/base:stable
     steps:
       - checkout
       - run:
@@ -32,21 +35,11 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
   install:
     jobs:
         - node/run:
             pkg-manager: npm 
+            resource_class: small 
             override-ci-command: npm install 
-            resource_class: large
             context:
               - someContext
-  example-workflow:
-      jobs:
-        - docker/publish:
-            deploy: true 
-            docker-password: docker_pass_test 
-            docker-username: docker_user_test 
-            image: some_image_name 
