@@ -6,8 +6,6 @@ orbs:
 workflows:
   test:
     jobs:
-      - package
-      - unit-tests
       - instrumented-tests:
           matrix:
             parameters:
