@@ -18,13 +18,6 @@ workflows:
 # modes: SDK initialization times out, or SDK initialization completes immediately
 # without acquiring any data because the emulator reports no network availability.
 # These do not appear correlated to any actual SDK logic flaw.
-      - contract-tests:
-          matrix:
-            parameters:
-              api-level:
-                - 21
-                - 25
-                - 30
 #                - 31
       # # "default" images are faster than "google_apis" images, but are otherwise equivalent for our purposes.
       # # however, there are no "default" images for Android 32+, so as a workaround we have a separate matrix
